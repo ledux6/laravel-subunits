@@ -14,10 +14,16 @@
                 <div class="form-group">
                     <label>Unit Number</label>
                     <input value="" name="unit_number">
+                    @error('unit_number')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Year</label>
                     <input value="" name="year">
+                    @error('year')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Notes</label>

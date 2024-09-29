@@ -9,15 +9,21 @@
     <body>
         <div class="container">
             <h1>Truck</h1>
-            <form action="/truck/{{$truck->id}}" method="POST">
+            <form action="/truck/update/{{$truck->id}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>Unit Number</label>
                     <input value="{{$truck->unit_number}}" name="unit_number">
+                    @error('unit_number')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Year</label>
                     <input value="{{ $truck->year }}" name="year">
+                    @error('year')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Notes</label>

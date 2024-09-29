@@ -71,7 +71,7 @@ class SubUnitController extends Controller
  
         if ($validator->fails()) {
             return redirect()
-                ->action([SubUnitController::class, 'createOptions'])
+                ->action([self::class, 'createOptions'])
                 ->withInput()
                 ->withErrors($validator)
                 ->withInput();
@@ -84,13 +84,13 @@ class SubUnitController extends Controller
             'end_date' => $request->all()['end_date'],
         ]);
 
-        return redirect()->action(action: [TruckController::class,'index'])->with('success','');
+        return redirect()->action(action: [MainController::class,'index'])->with('success','');
     }
 
     public function delete(int $id) {
         SubUnit::whereId($id)->delete();
 
-        return redirect()->action([TruckController::class,'index'])->with('success','');
+        return redirect()->action([MainController::class,'index'])->with('success','');
     }
 
     public function get(int $id) {
@@ -108,6 +108,6 @@ class SubUnitController extends Controller
                 'end_date' => $request->all()['end_date'],
         ]);
 
-        return redirect()->action(action: [TruckController::class,'index'])->with('success','');
+        return redirect()->action(action: [MainController::class,'index'])->with('success','');
     }
 }

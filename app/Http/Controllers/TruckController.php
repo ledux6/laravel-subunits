@@ -4,22 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Truck;
-use App\Models\SubUnit;
+use Illuminate\Support\Facades\Validator;
 
 class TruckController extends Controller
 {
-    public function index() 
-    {
-        return view("main", ['trucks' => Truck::all(), 'subUnits' => SubUnit::all()]);
-    }
-
     public function get(int $id) {
         $truck = Truck::whereId($id)->first();
 
-        return view('truck', ['truck'=> $truck]);
+        return view('truck-edit', ['truck'=> $truck]);
     }
 
     public function update(Request $request, int $id) {
+        $validator = Validator::make($request->all(),
+        ['unit_number' => 'required', 'year' => 'required|integer|min:1900']);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->action([self::class, 'get', $id])
+                ->withInput()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         Truck::whereId($id)
             ->update([
                 'unit_number' => $request->all()['unit_number'],
@@ -37,6 +43,17 @@ class TruckController extends Controller
     }
 
     public function create(Request $request) {
+        $validator = Validator::make($request->all(),
+        ['unit_number' => 'required', 'year' => 'required|integer|min:1900']);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->action([self::class, 'create'])
+                ->withInput()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $truck = Truck::create([
             'unit_number' => $request->all()['unit_number'],
             'year' => $request->all()['year'],

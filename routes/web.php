@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\SubUnitController;
 use App\Http\Controllers\TruckController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [TruckController::class, 'index']);
+Route::get('/', [MainController::class, 'index']);
+
 Route::get('/truck/{id}', [TruckController::class, 'get']);
-Route::post('/truck/{id}', [TruckController::class, 'update']);
+Route::post('/truck/update/{id}', [TruckController::class, 'update']);
 Route::get('/truck/delete/{id}', [TruckController::class,'delete']);
 Route::get('/truck', function() { return view('truck-create');}); 
 Route::post('/truck', [TruckController::class,'create']);

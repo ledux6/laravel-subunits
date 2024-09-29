@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->id();
-            $table->string('unit_number', 255)->nullable(false);
-            $table->integer('year')->nullable(false);
-            $table->text('notes');
+            $table->string('unit_number', 255);
+            $table->integer('year');
+            $table->text('notes')->nullable();
         });
     }
 
