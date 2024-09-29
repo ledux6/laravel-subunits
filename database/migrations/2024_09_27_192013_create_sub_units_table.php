@@ -1,0 +1,25 @@
+<?php
+
+use App\Models\Truck;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('sub_units', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Truck::class, column: 'main_truck_id');
+            $table->foreignIdFor(Truck::class, column: 'sub_unit_id');
+            $table->dateTime('start_date')->nullable(false);
+            $table->dateTime('end_date')->nullable(false);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('sub_units');
+    }
+};
